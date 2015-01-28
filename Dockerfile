@@ -1,20 +1,18 @@
 FROM docker-docs:master
 
+RUN apt-get update && apt-get install -y \
+	python-lxml
+
+RUN pip install lxml
+
 COPY theme /docs/theme
 
 RUN mkdocs build
 
-# RUN pip install lxml
-
 COPY mkdocs2dash.py /docs/mkdocs2dash.py
-
 COPY abs2rel.py /docs/abs2rel.py
 
-# COPY css/bootstrap-responsive.css /docs/site/css/bootstrap-responsive.css
-
-RUN python abs2rel.py /docs/site
-
-# - Switch to latest release tag
+RUN python abs2rel.py -v /docs/site
 
 # - Convert youtube embeds to links
 
@@ -29,3 +27,6 @@ RUN python abs2rel.py /docs/site
 #      - Move icon files to proper location in docset
 #      - tar and gzip docset
 #      - Copy to S3/Github/???
+
+# - Switch to latest release tag
+
