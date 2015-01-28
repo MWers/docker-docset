@@ -7,7 +7,6 @@ COPY theme /docs/theme
 
 RUN mkdocs build
 
-COPY mkdocs2dash.py /docs/mkdocs2dash.py
 COPY abs2rel.py /docs/abs2rel.py
 
 RUN python abs2rel.py -v /docs/site
