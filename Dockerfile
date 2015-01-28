@@ -3,8 +3,6 @@ FROM docker-docs:master
 RUN apt-get update && apt-get install -y \
 	python-lxml
 
-RUN pip install lxml
-
 COPY theme /docs/theme
 
 RUN mkdocs build

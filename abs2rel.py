@@ -27,7 +27,10 @@ args = parser.parse_args()
 if args.vverbose:
     args.verbose = True
 
-# FIXME: Check to be sure that `args.path` exists
+if not os.path.isdir(args.path):
+    print 'Error: Directory %s does not exist' % args.path
+    sys.exit
+
 
 def abs2rel(link):
     if link[:1] == '/' and link[:2] != '//':
