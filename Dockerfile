@@ -2,6 +2,14 @@ FROM docker-docs:master
 
 RUN mkdocs build
 
+# RUN pip install lxml
+
+COPY mkdocs2dash.py /docs/mkdocs2dash.py
+
+COPY abs2rel.py /docs/abs2rel.py
+
+RUN python abs2rel.py /docs/site
+
 # - Set up Environment
 #     - Install Python Dependencies
 #     - Upload Doc Generation Script
