@@ -3,7 +3,7 @@ FROM docker-docs:master
 RUN apt-get update && apt-get install -y \
 	python-lxml
 
-COPY theme /docs/theme
+COPY assets/theme /docs/theme
 
 RUN VERSION=$(cat VERSION) \
         && MAJOR_MINOR="${VERSION%.*}" \
@@ -27,7 +27,9 @@ COPY abs2rel.py /docs/abs2rel.py
 
 RUN python abs2rel.py -v /docs/site
 
-RUN mkdir -p /docs/release
+RUN mkdir -p /docs/release/Docker.docset/Contents/Resources/Documents
+
+
 
 
 #      - Make docset directory hierarchy
