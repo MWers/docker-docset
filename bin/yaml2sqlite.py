@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+"""
+
+Reads an MkDocs YAML file and generates a Docset SQLite3 index from the
+contents.
+"""
+
 import argparse
 import os
 import sqlite3
