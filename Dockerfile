@@ -25,6 +25,7 @@ RUN VERSION=$(cat VERSION) \
 RUN mkdocs build
 
 RUN find /docs/site -type f -name "*.md~" -exec rm -f {} \;
+RUN rm -f /docs/site/search_content.json
 
 COPY abs2rel.py /docs/abs2rel.py
 RUN python abs2rel.py -v /docs/site
