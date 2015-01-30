@@ -1,6 +1,4 @@
-# docker-docset
-
-Docker Docset Generator
+# Docker Docset Generator
 
 ## Build Docker Docset
 
