@@ -1,4 +1,4 @@
-FROM docker-docs:master
+FROM docker-docs:1.4.1
 
 RUN apt-get update && apt-get install -y \
 	python-lxml \
@@ -43,8 +43,3 @@ COPY assets/docset/Info.plist /docs/release/Docker.docset/Contents/Info.plist
 
 WORKDIR /docs/release
 RUN tar --exclude='.DS_Store' -cvzf Docker.tgz Docker.docset
-
-#      - Copy to S3/Github/???
-
-# - Switch to latest release tag
-
