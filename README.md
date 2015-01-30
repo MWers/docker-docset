@@ -2,14 +2,18 @@
 
 Docker Docset Generator
 
-## Build
+## Build Docker Docset
+
+Create the Docker docset image
 
 ```
 docker build -t docker-docset .
 ```
 
-## Run
+## Copy Docker.docset to local filesystem
+
+Copy `Docker.docset` to `/release`
 
 ```
-docker run --rm -it -p 8000:8000 "docker-docset" mkdocs serve
+docker run --rm -it -v `pwd`/release:/host/release "docker-docset" cp -av Docker.docset /host/release/
 ```
