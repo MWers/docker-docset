@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+"""
+Recursively converts absolute links to relative links and protocol-relative
+links to https links.
+"""
+
 import argparse
 import os
 import sys
@@ -8,8 +13,8 @@ import lxml.html
 
 parser = argparse.ArgumentParser()
 parser.add_argument('path',
-                    help=('The path containing files with links to '
-                          'convert from absolute to relative'))
+                    help=('The path containing files with links to convert '
+                          'from absolute to relative'))
 parser.add_argument('--suffix',
                     dest='suffix',
                     default='.html',
@@ -31,9 +36,13 @@ if not os.path.isdir(args.path):
 
 
 def abs2rel(link):
-    if link[:1] == '/' and link[:2] != '//':
-        # Convert links to relative
-        # ex. os.path.relpath('/foo', '/foo/bar/bav') => '../..'
+    # convert protocol-relative links to https
+    if link[:2] == '//':
+        newlink = 'https:%s' % (link)
+    # convert absolute links to relative
+    elif link[:1] == '/':
+        # os.path.relpath('/foo', '/foo/bar/bav')
+        #   => '../..'
         relpath = os.path.relpath(args.path, root)
         newlink = '%s%s' % (relpath, link)
     else:
