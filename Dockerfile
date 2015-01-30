@@ -1,7 +1,8 @@
 FROM docker-docs:master
 
 RUN apt-get update && apt-get install -y \
-	python-lxml
+	python-lxml \
+	python-yaml
 
 COPY assets/theme /docs/theme
 
@@ -23,22 +24,26 @@ RUN VERSION=$(cat VERSION) \
 
 RUN mkdocs build
 
-COPY abs2rel.py /docs/abs2rel.py
+RUN find /docs/site -type f -name "*.md~" -exec rm -f {} \;
 
+COPY abs2rel.py /docs/abs2rel.py
 RUN python abs2rel.py -v /docs/site
 
 RUN mkdir -p /docs/release/Docker.docset/Contents/Resources/Documents
 
+RUN cp -a /docs/site/* /docs/release/Docker.docset/Contents/Resources/Documents
 
+# TODO: Add index for select pages (like Dockerfile and CLI reference)
+COPY yaml2sqlite.py /docs/yaml2sqlite.py
+RUN python yaml2sqlite.py -v mkdocs.yml /docs/release/Docker.docset/Contents/Resources/docSet.dsidx
 
+COPY assets/docset/icon@2x.png /docs/release/Docker.docset/icon@2x.png
+COPY assets/docset/icon.png /docs/release/Docker.docset/icon.png
+COPY assets/docset/Info.plist /docs/release/Docker.docset/Contents/Info.plist
 
-#      - Make docset directory hierarchy
-#      - Move docs to proper location
-#      - Convert absolute links to relative
-#      - Generate SQLite DB
-#      - Populate db with index
-#      - Move icon files to proper location in docset
-#      - tar and gzip docset
+WORKDIR /docs/release
+RUN tar --exclude='.DS_Store' -cvzf Docker.tgz Docker.docset
+
 #      - Copy to S3/Github/???
 
 # - Switch to latest release tag
