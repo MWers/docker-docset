@@ -52,8 +52,8 @@ if rawyaml:
     for page in yaml.load(rawyaml).get('pages'):
         mdpath, title = page[0], ' - '.join(page[1:])
         if '**HIDDEN**' not in title:
-            if mdpath == 'index.md':
-                htmlpath = 'index.html'
+            if 'index.md' in mdpath:
+                htmlpath = mdpath.replace('index.md', 'index.html')
             else:
                 htmlpath = mdpath.replace('.md', '/index.html')
 
