@@ -27,7 +27,7 @@ RUN mkdocs build
 RUN find /docs/site -type f -name "*.md~" -exec rm -f {} \;
 RUN rm -f /docs/site/search_content.json
 
-COPY abs2rel.py /docs/abs2rel.py
+COPY bin/abs2rel.py /docs/abs2rel.py
 RUN python abs2rel.py -v /docs/site
 
 RUN mkdir -p /docs/release/Docker.docset/Contents/Resources/Documents
@@ -35,7 +35,7 @@ RUN mkdir -p /docs/release/Docker.docset/Contents/Resources/Documents
 RUN cp -a /docs/site/* /docs/release/Docker.docset/Contents/Resources/Documents
 
 # TODO: Add index for select pages (like Dockerfile and CLI reference)
-COPY yaml2sqlite.py /docs/yaml2sqlite.py
+COPY bin/yaml2sqlite.py /docs/yaml2sqlite.py
 RUN python yaml2sqlite.py -v mkdocs.yml /docs/release/Docker.docset/Contents/Resources/docSet.dsidx
 
 COPY assets/docset/icon@2x.png /docs/release/Docker.docset/icon@2x.png
