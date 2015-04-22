@@ -7,6 +7,7 @@ contents.
 
 import argparse
 import os
+import re
 import sqlite3
 import sys
 
@@ -56,6 +57,7 @@ with open(args.yaml) as f:
     rawyaml = f.read()
 
 if rawyaml:
+    prevtitle = ''
     for page in yaml.load(rawyaml).get('pages'):
         mdpath, title = page[0], ' - '.join(page[1:])
         if '**HIDDEN**' not in title:
@@ -63,6 +65,12 @@ if rawyaml:
                 htmlpath = mdpath.replace('index.md', 'index.html')
             else:
                 htmlpath = mdpath.replace('.md', '/index.html')
+
+            # Replace bullets with breadcrumbs
+            if '&blacksquare;' in title:
+                title = re.sub('.*&blacksquare;&nbsp;\s*', prevtitle + ' - ', title)
+            else:
+                prevtitle = title
 
             cur.execute('''
                 INSERT OR IGNORE INTO
@@ -81,3 +89,4 @@ if rawyaml:
                 print
 
 db.close()
+
