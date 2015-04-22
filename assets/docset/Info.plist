@@ -6,6 +6,8 @@
 	<string>docker</string>
 	<key>CFBundleName</key>
 	<string>Docker</string>
+	<key>DashDocSetFamily</key>
+	<string>dashtoc</string>
 	<key>DocSetPlatformFamily</key>
 	<string>docker</string>
 	<key>dashIndexFilePath</key>
