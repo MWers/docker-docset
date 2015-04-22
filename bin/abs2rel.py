@@ -73,3 +73,4 @@ for root, dirs, files in os.walk(args.path):
             # Write the updated links back to the file
             with open(os.path.join(root, file), 'w') as f:
                 f.write(lxml.html.tostring(html))
+
