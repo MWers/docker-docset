@@ -1,3 +1,13 @@
+# DEPRECATED
+
+Dash has hadded an *official* Docker Docset so unless there's a demand for a Docker Docset
+outside of Dash, I will no longer maintain this repo. If you're still using this and wish for it
+to containue to be maintained, please
+[submit an issue](https://github.com/MWers/docker-docset/issues/new)
+and let me know. Thanks!
+
+---- 
+
 # Docker Docset Generator
 
 ## Build Docker Docset
